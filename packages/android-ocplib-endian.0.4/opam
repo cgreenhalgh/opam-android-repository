@@ -1,0 +1,12 @@
+opam-version: "1"
+maintainer: "contact@ocamlpro.com"
+build: [
+  ["ocaml" "setup.ml" "-configure" "--override" "ocamlfind" "%{prefix}%/bin/arm-linux-androideabi/ocamlfind" "--disable-debug" "--prefix" "%{prefix}%"]
+  ["ocaml" "setup.ml" "-build"]
+  ["ocaml" "setup.ml" "-install"]
+]
+remove: [
+  ["%{prefix}%/bin/arm-linux-androideabi/ocamlfind" "remove" "ocplib-endian"]
+]
+depends: [ "android-ocamlfind" "android-optcomp" ]
+homepage: "https://github.com/OCamlPro/ocplib-endian"

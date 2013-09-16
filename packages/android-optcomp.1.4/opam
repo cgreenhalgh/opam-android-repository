@@ -1,0 +1,15 @@
+opam-version: "1"
+maintainer: "contact@ocamlpro.com"
+build: [
+  ["./configure" "--prefix" "%{prefix}%"]
+  [make]
+  [make "install"]
+  ["ln" "-s" "%{prefix}%/lib/optcomp" "%{prefix}%/arm-linux-androideabi/lib/"]
+]
+remove: [
+  ["ocamlfind" "remove" "optcomp"]
+  ["rm" "%{bin}%/optcomp-o"]
+  ["rm" "%{bin}%/optcomp-r"]
+  ["rm" "%{prefix}%/arm-linux-androideabi/lib/optcomp"]
+]
+depends: [ "ocamlfind" ]
