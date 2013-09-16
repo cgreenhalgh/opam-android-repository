@@ -1,7 +1,8 @@
 opam-version: "1"
 maintainer: "contact@ocamlpro.com"
 build: [
-  ["ocaml" "setup.ml" "-configure" "--override" "ocamlfind" "%{prefix}%/bin/arm-linux-androideabi/ocamlfind" "--disable-debug" "--prefix" "%{prefix}%"]
+  ["oasis" "setup"]
+  ["ocaml" "setup.ml" "-configure" "--override" "ocamlfind" "%{prefix}%/bin/arm-linux-androideabi/ocamlfind" "--disable-debug"]
   ["ocaml" "setup.ml" "-build"]
   ["ocaml" "setup.ml" "-install"]
 ]
