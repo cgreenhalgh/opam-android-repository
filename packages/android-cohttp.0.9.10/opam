@@ -1,0 +1,17 @@
+opam-version: "1"
+maintainer: "anil@recoil.org"
+build: [
+  ["oasis" "setup"]
+  ["ocaml" "setup.ml" "-configure" "--prefix" "%{prefix}%"
+      "--enable-lwt" "--enable-mirage"
+      "--override" "ocamlfind"
+         "%{prefix}%/bin/arm-linux-androideabi-ocamlfind"]
+  ["ocaml" "setup.ml" "-build"]
+  ["ocaml" "setup.ml" "-install"]
+]
+remove: [
+  ["%{prefix}%/bin/arm-linux-androideabi-ocamlfind" "remove" "cohttp"]
+]
+depends: [ "android-ocamlfind" "android-re" "android-uri" {>="1.3.2"} "android-ounit" "android-cstruct" "android-lwt" {>="2.4.3"}  ]
+depopts: [ "async" {>="109.15.00"} "mirage-net" {>="0.5.0"} ]
+tags: [ "org:mirage" "org:xapi-project" ]
