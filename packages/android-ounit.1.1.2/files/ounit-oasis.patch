@@ -1,0 +1,12 @@
+diff --git a/_oasis b/_oasis
+index 0f5c9d2..ea03aae 100644
+--- a/_oasis
++++ b/_oasis
+@@ -34,6 +34,7 @@ Executable test
+   MainIs: test.ml
+   BuildDepends: oUnit
+   Install: false
++  CompiledObject: native
+   
+ Test main
+   Command: $test

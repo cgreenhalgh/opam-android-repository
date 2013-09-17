@@ -1,0 +1,22 @@
+opam-version: "1"
+maintainer: "sheets@alum.mit.edu"
+build: [
+  ["oasis" "setup"]
+  ["ocaml" "setup.ml" "-configure" "--prefix" "%{prefix}%" "--override" "ocamlfind"
+         "%{prefix}%/bin/arm-linux-androideabi-ocamlfind"]
+  [make "build"]
+  [make "install"]
+]
+remove: [
+  ["%{prefix}%/bin/arm-linux-androideabi-ocamlfind" "remove" "ipaddr"]
+]
+
+depends: [ "android-ocamlfind" ]
+
+homepage: "https://github.com/mirage/ocaml-ipaddr"
+license: "ISC"
+authors: [
+  "David Sheets"
+  "Anil Madhavapeddy"
+]
+tags: [ "org:mirage" "org:xapi-project" ]

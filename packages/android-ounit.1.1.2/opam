@@ -1,0 +1,14 @@
+opam-version: "1"
+maintainer: "contact@ocamlpro.com"
+patches: [ "ounit-oasis.patch" ]
+build: [
+  ["oasis" "setup"]
+  ["ocaml" "setup.ml" "-configure" "--override" "ocamlfind" "%{prefix}%/bin/arm-linux-androideabi-ocamlfind"]
+  ["ocaml" "setup.ml" "-build"]
+  ["ocaml" "setup.ml" "-install"]
+]
+remove: [
+  ["%{prefix}%/bin/arm-linux-androideabi-ocamlfind" "remove" "oUnit"]
+]
+depends: ["android-ocamlfind"]
+

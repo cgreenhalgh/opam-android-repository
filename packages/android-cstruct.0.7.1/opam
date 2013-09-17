@@ -1,0 +1,20 @@
+opam-version: "1"
+maintainer: "anil@recoil.org"
+build: [
+  ["oasis" "setup"]
+  ["ocaml" "setup.ml" "-configure" "--enable-lwt" "--enable-unix" 
+      "--override" "ocamlfind"
+         "%{prefix}%/bin/arm-linux-androideabi-ocamlfind"]
+  ["ocaml" "setup.ml" "-build"]
+  ["ocaml" "setup.ml" "-install"]
+]
+remove: [
+  ["%{prefix}%/bin/arm-linux-androideabi-ocamlfind" "remove" "cstruct"]
+]
+depends: ["android-ocamlfind" "android-ocplib-endian" "android-lwt"]
+depopts: ["async"]
+
+authors: ["Anil Madhavapeddy"]
+homepage: "https://github.com/mirage/ocaml-cstruct"
+license: "ISC"
+tags: [ "org:mirage" "org:xapi-project" ]

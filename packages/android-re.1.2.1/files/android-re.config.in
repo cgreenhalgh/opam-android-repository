@@ -1,0 +1,7 @@
+library "re" {
+  asmcomp:  [ "-I" "%{prefix}%/arm-linux-androideabi/lib/re" ]
+  bytelink: [ "-I" "%{prefix}%/arm-linux-androideabi/lib/re" ]  
+  asmlink:  [ "-I" "%{prefix}%/arm-linux-androideabi/lib/re" "re.cmxa" ]
+  bytelink: [ "-I" "%{prefix}%/arm-linux-androideabi/lib/re" "re.cma" ]
+}
+

@@ -1,0 +1,64 @@
+From 72352b35ef7b309886e965e4e85acd3048eaf819 Mon Sep 17 00:00:00 2001
+From: Chris Greenhalgh <chris.greenhalgh@nottingham.ac.uk>
+Date: Sun, 15 Sep 2013 20:05:11 +0100
+Subject: [PATCH] use dmb only on ARM v7, otherwise __sync_synchronize
+
+dmb is only available on ARM v7; for older versions using the GCC builtin.
+---
+ lib/barrier.h      | 11 +++++++++++
+ lib_test/barrier.h | 11 +++++++++++
+ 2 files changed, 22 insertions(+)
+
+diff --git a/lib/barrier.h b/lib/barrier.h
+index 8d9bb09..25643a2 100644
+--- a/lib/barrier.h
++++ b/lib/barrier.h
+@@ -17,9 +17,20 @@
+ #define xen_rmb() xen_barrier()
+ #define xen_wmb() xen_barrier()
+ #elif defined(__arm__)
++#if defined(__ARM_ARCH_7__) \
++	|| defined(__ARM_ARCH_7A__) \
++	|| defined(__ARM_ARCH_7M__) \
++	|| defined(__ARM_ARCH_7R__) \
++	|| defined(__ARM_ARCH_7S__)
+ #define xen_mb()   asm volatile ("dmb" : : : "memory")
+ #define xen_rmb()  asm volatile ("dmb" : : : "memory")
+ #define xen_wmb()  asm volatile ("dmb" : : : "memory")
++#else
++/* gcc since 4.4.3?! */
++#define xen_mb()   __sync_synchronize()
++#define xen_rmb()   __sync_synchronize()
++#define xen_wmb()   __sync_synchronize()
++#endif
+ #elif defined(__aarch64__)
+ #define xen_mb()   asm volatile ("dmb sy" : : : "memory")
+ #define xen_rmb()  asm volatile ("dmb sy" : : : "memory")
+diff --git a/lib_test/barrier.h b/lib_test/barrier.h
+index 8d9bb09..25643a2 100644
+--- a/lib_test/barrier.h
++++ b/lib_test/barrier.h
+@@ -17,9 +17,20 @@
+ #define xen_rmb() xen_barrier()
+ #define xen_wmb() xen_barrier()
+ #elif defined(__arm__)
++#if defined(__ARM_ARCH_7__) \
++	|| defined(__ARM_ARCH_7A__) \
++	|| defined(__ARM_ARCH_7M__) \
++	|| defined(__ARM_ARCH_7R__) \
++	|| defined(__ARM_ARCH_7S__)
+ #define xen_mb()   asm volatile ("dmb" : : : "memory")
+ #define xen_rmb()  asm volatile ("dmb" : : : "memory")
+ #define xen_wmb()  asm volatile ("dmb" : : : "memory")
++#else
++/* gcc since 4.4.3?! */
++#define xen_mb()   __sync_synchronize()
++#define xen_rmb()   __sync_synchronize()
++#define xen_wmb()   __sync_synchronize()
++#endif
+ #elif defined(__aarch64__)
+ #define xen_mb()   asm volatile ("dmb sy" : : : "memory")
+ #define xen_rmb()  asm volatile ("dmb sy" : : : "memory")
+-- 
+1.8.4
+
