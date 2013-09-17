@@ -1,9 +1,13 @@
 opam-android-repository
 =======================
 
+This fork of vouillon's repository was developed to support [Mirage](http://www.openmirage.org/) on Android.
+
 This OPAM repository contains an OCaml cross-compiler for Google
 Android, as well as a few OCaml libraries and programs compiled for
 Android.
+
+It also includes android toolchain versions of various mirage dependencies.
 
 Installation notes
 ------------------
@@ -11,13 +15,22 @@ Installation notes
 Use the following command to add this repository to the list of
 repositories used by OPAM:
 ```
-opam repo add android https://github.com/vouillon/opam-android-repository.git
+opam repo add android https://github.com/cgreenhalgh/opam-android-repository.git
 ```
 
 The following command will list the available packages:
 ```
 opam list | grep android
 ```
+
+Building some modules requires a patched ocamlbuild (to use ocamlfind for ocamlmklib):
+```
+ocaml switch 4.00.1+mirage-android
+```
+
+Some notes on building Mirage for Android are in the
+[open sharing toolkit](https://github.com/cgreenhalgh/opensharingtoolkit/blob/master/docs/mirageonandroid.md)
+project documentation.
 
 The Android NDK (Native Development Kit) is automatically downloaded.
 
